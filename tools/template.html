@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{TITLE}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14161A; --surface:#1D2025; --surface-2:#242830; --border:#31353D;
+  --text:#EDEFF2; --text-dim:#9AA1AC;
+  --amber:#FFB238; --blue:#5B8DEF; --green:#6FCF97; --red:#EB6B6B;
+  --display:'Oswald',sans-serif; --body:'Inter',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 80px;}
+.masthead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:1px solid var(--border);padding-bottom:22px;margin-bottom:26px;}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin:0;}
+.title{font-family:var(--display);font-weight:600;font-size:clamp(24px,4.5vw,36px);margin:6px 0;}
+.tags{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.tag{font-family:var(--mono);font-size:11px;padding:3px 9px;border:1px solid var(--border);border-radius:20px;color:var(--text-dim);}
+.dial{position:relative;flex:none;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--amber) calc(var(--pct,0)*1%), var(--surface-2) 0);display:flex;align-items:center;justify-content:center;}
+.dial::after{content:'';position:absolute;inset:6px;border-radius:50%;background:var(--bg);}
+.dial span{position:relative;z-index:1;font-family:var(--mono);font-size:12px;}
+.nav{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap;}
+.navbtn{flex:1;min-width:110px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);padding:10px 8px;border-radius:8px;cursor:pointer;font-size:13px;text-align:left;font-family:var(--body);}
+.navbtn.active{background:var(--surface-2);border-color:var(--amber);color:var(--text);}
+.navbtn.done::after{content:' ✓';color:var(--green);}
+.panel{display:none;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:26px;}
+.panel.active{display:block;}
+.panel h2{font-family:var(--display);font-weight:500;font-size:20px;margin:0 0 14px;}
+.hint{color:var(--text-dim);font-size:13.5px;padding:10px 14px;background:var(--surface-2);border-left:2px solid var(--amber);margin-bottom:20px;}
+.pair{border-bottom:1px solid var(--border);padding:14px 0;display:flex;gap:12px;align-items:flex-start;}
+.pair:last-child{border-bottom:none;}
+.playbtn{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--surface-2);color:var(--amber);cursor:pointer;font-size:13px;}
+.pair .ts{flex:none;font-family:var(--mono);font-size:11px;color:var(--text-dim);padding-top:9px;width:42px;}
+.pair-text .it{font-size:15.5px;margin:0 0 2px;}
+.pair-text .cn{font-size:13.5px;color:var(--text-dim);margin:0;}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
+.btn{font-weight:600;font-size:13.5px;padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer;font-family:var(--body);}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#1A1400;}
+.btn:disabled{opacity:.45;cursor:default;}
+textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:12px;font-family:var(--body);font-size:15px;resize:vertical;}
+.s2cn{font-size:17px;margin:10px 0 14px;}
+.s2meta{font-family:var(--mono);font-size:12px;color:var(--text-dim);}
+.s2it{margin-top:14px;font-size:15.5px;min-height:24px;}
+.s2it .ok{color:var(--green);} .s2it .miss{color:var(--red);text-decoration:underline dotted;}
+.mcq{margin-bottom:22px;}
+.mcq .q{font-weight:600;margin:0 0 10px;}
+.opt{display:block;width:100%;text-align:left;background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;margin-bottom:8px;cursor:pointer;font-family:var(--body);font-size:14px;}
+.opt.selected{border-color:var(--blue);}
+.opt.correct{border-color:var(--green);background:rgba(111,207,151,.12);}
+.opt.wrong{border-color:var(--red);background:rgba(235,107,107,.12);}
+.result{margin-top:14px;font-family:var(--mono);font-size:14px;color:var(--amber);min-height:20px;}
+.wordbank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.chip{font-family:var(--mono);font-size:13px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface-2);color:var(--amber);cursor:pointer;}
+.chip.used{opacity:.4;text-decoration:line-through;}
+.fillpara{font-size:15.5px;line-height:2.2;}
+.fillpara input{width:110px;background:var(--bg);border:none;border-bottom:2px solid var(--blue);color:var(--amber);font-family:var(--mono);text-align:center;font-size:14px;padding:2px 4px;margin:0 2px;outline:none;}
+.fillpara input:focus{border-bottom-color:var(--amber);}
+.fillpara input.correct{border-color:var(--green);color:var(--green);}
+.fillpara input.wrong{border-color:var(--red);color:var(--red);}
+.gcard{background:var(--surface-2);border-radius:10px;padding:18px 20px;margin-bottom:16px;border:1px solid var(--border);}
+.gcard h3{margin:0 0 8px;font-family:var(--display);font-weight:500;font-size:18px;color:var(--amber);}
+.gcard .row{font-size:14px;margin:4px 0;}
+.gcard .row b{color:var(--text-dim);font-weight:600;margin-right:6px;}
+.gcard .ex{font-family:var(--mono);font-size:13px;background:var(--bg);padding:10px 12px;border-radius:6px;margin-top:8px;color:var(--blue);}
+.gcard .explain{font-size:14px;color:var(--text);margin-top:10px;}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 22px;}
+@media (max-width:520px){.vgrid{grid-template-columns:1fr;}}
+.vcard{background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:14px;}
+.vcard .term{font-family:var(--mono);color:var(--amber);font-weight:700;margin:0 0 4px;}
+.vcard .mean{margin:0;font-size:14px;color:var(--text-dim);}
+.subhead{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--text-dim);text-transform:uppercase;margin:22px 0 10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <p class="eyebrow">{{EYEBROW}}</p>
+      <h1 class="title">{{TITLE}}</h1>
+      <div class="tags">{{TAGS}}</div>
+    </div>
+    <div class="dial" id="dial" style="--pct:0"><span id="dialtext">0/5</span></div>
+  </div>
+  <div class="nav" id="nav">
+    <button class="navbtn active" data-p="1">01 中意对照</button>
+    <button class="navbtn" data-p="2">02 开口输出</button>
+    <button class="navbtn" data-p="3">03 听力理解</button>
+    <button class="navbtn" data-p="4">04 听写填空</button>
+    <button class="navbtn" data-p="5">05 本期精讲</button>
+  </div>
+
+  <div class="panel active" id="p1">
+    <h2>01 中意对照</h2>
+    <div class="hint">先通读一遍，点 ▶ 听每句发音，跟读两遍再进入下一步。</div>
+    <div id="pairs"></div>
+    <div class="actions">
+      <button class="btn" onclick="playAll()">▶ 播放全文</button>
+      <button class="btn primary" onclick="markDone(1)">✓ 完成</button>
+    </div>
+  </div>
+
+  <div class="panel" id="p2">
+    <h2>02 开口输出</h2>
+    <div class="hint">只看中文，先大声说出意大利语，再写下来，然后点「对照原文」核对。</div>
+    <p class="s2meta" id="s2meta"></p>
+    <p class="s2cn" id="s2cn"></p>
+    <textarea id="s2input" placeholder="在这里写出意大利语..."></textarea>
+    <div class="actions">
+      <button class="btn" onclick="revealSentence()">对照原文</button>
+      <button class="btn" onclick="speakCurrent()">▶ 听原句</button>
+      <button class="btn" id="s2next" onclick="nextSentence()">下一句</button>
+      <button class="btn primary" onclick="markDone(2)">✓ 完成</button>
+    </div>
+    <div class="s2it" id="s2it"></div>
+  </div>
+
+  <div class="panel" id="p3">
+    <h2>03 听力理解</h2>
+    <div class="hint">不看文字，先听两遍全文，再回答下面 3 道理解题。</div>
+    <div class="actions" style="margin:0 0 20px">
+      <button class="btn primary" onclick="playAll()">▶ 播放语音</button>
+      <button class="btn" onclick="speechSynthesis.cancel()">■ 停止</button>
+    </div>
+    <div id="mcqbox"></div>
+    <div class="actions">
+      <button class="btn" onclick="checkMCQ()">检查答案</button>
+      <button class="btn primary" onclick="markDone(3)">✓ 完成</button>
+    </div>
+    <div class="result" id="mcqresult"></div>
+  </div>
+
+  <div class="panel" id="p4">
+    <h2>04 听写填空</h2>
+    <div class="hint">点 ▶ 再听一遍，从词库里选词填空。词库里多了 2 个干扰词，不要全都用上。</div>
+    <div class="actions" style="margin:0 0 16px">
+      <button class="btn" onclick="playAll()">▶ 播放全文</button>
+    </div>
+    <div class="wordbank" id="wordbank"></div>
+    <p class="fillpara" id="fillpara"></p>
+    <div class="actions">
+      <button class="btn" onclick="checkFill()">检查答案</button>
+      <button class="btn" onclick="resetFill()">重置</button>
+      <button class="btn primary" onclick="markDone(4)">✓ 完成</button>
+    </div>
+    <div class="result" id="fillresult"></div>
+  </div>
+
+  <div class="panel" id="p5">
+    <h2>05 本期精讲</h2>
+    <p class="subhead">语法点</p>
+    <div id="grammarbox"></div>
+    <p class="subhead">词汇</p>
+    <div class="vgrid" id="vocabgrid"></div>
+    <p class="subhead">现在轮到你</p>
+    <div class="hint">用本期至少 2 个语法点、3 个词汇，写 3 句你自己的话（比如你去市场会说什么）。</div>
+    <textarea id="s5input" placeholder="现在轮到你..."></textarea>
+    <div class="actions">
+      <button class="btn" onclick="speak(document.getElementById('s5input').value)">▶ 听我写的句子</button>
+      <button class="btn primary" onclick="markDone(5)">✓ 完成</button>
+    </div>
+  </div>
+</div>
+<script>
+/*__LESSON_DATA__*/
+
+// ---------- 通用 ----------
+const done = {1:false,2:false,3:false,4:false,5:false};
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.p)));
+function showPanel(n){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+  document.querySelector(`.navbtn[data-p="${n}"]`).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function markDone(n){
+  done[n]=true;
+  document.querySelector(`.navbtn[data-p="${n}"]`).classList.add('done');
+  const t=Object.values(done).filter(Boolean).length;
+  document.getElementById('dial').style.setProperty('--pct',t*20);
+  document.getElementById('dialtext').textContent=t+'/5';
+  if(n<5) showPanel(n+1);
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function norm(s){return String(s).toLowerCase().replace(/^[\s.,;:!?"'«»“”()]+|[\s.,;:!?"'«»“”()]+$/g,'').replace(/\s+/g,' ');}
+
+// ---------- TTS ----------
+let itVoice=null;
+function loadVoice(){ if(!('speechSynthesis' in window)) return; itVoice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('it'))||null; }
+loadVoice(); if('speechSynthesis' in window) speechSynthesis.onvoiceschanged=loadVoice;
+function speak(t){
+  if(!('speechSynthesis' in window)||!t) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t); u.lang='it-IT'; u.rate=0.92; if(itVoice)u.voice=itVoice;
+  speechSynthesis.speak(u);
+}
+function playAll(){speak(sentences.map(s=>s.it).join('  '));}
+
+// ---------- 01 中意对照 ----------
+function renderPairs(){
+  document.getElementById('pairs').innerHTML=sentences.map((s,i)=>`
+    <div class="pair">
+      <button class="playbtn" title="朗读" onclick="speak(sentences[${i}].it)">▶</button>
+      <span class="ts">${esc(s.t)}</span>
+      <div class="pair-text"><p class="it">${esc(s.it)}</p><p class="cn">${esc(s.cn)}</p></div>
+    </div>`).join('');
+}
+
+// ---------- 02 开口输出 ----------
+let idx=0;
+function renderS2(){
+  const s=sentences[idx];
+  document.getElementById('s2meta').textContent=`${idx+1} / ${sentences.length}  ·  ${s.t}`;
+  document.getElementById('s2cn').textContent=s.cn;
+  document.getElementById('s2input').value='';
+  document.getElementById('s2it').innerHTML='';
+  document.getElementById('s2next').textContent = idx===sentences.length-1 ? '回到第一句' : '下一句';
+}
+function revealSentence(){
+  const s=sentences[idx];
+  const mine=new Set(norm(document.getElementById('s2input').value).split(' ').map(norm).filter(Boolean));
+  const words=s.it.split(/(\s+)/).map(w=>{
+    if(!w.trim()) return w;
+    return `<span class="${mine.has(norm(w))?'ok':'miss'}">${esc(w)}</span>`;
+  }).join('');
+  document.getElementById('s2it').innerHTML=words;
+}
+function speakCurrent(){speak(sentences[idx].it);}
+function nextSentence(){idx=(idx+1)%sentences.length;renderS2();}
+
+// ---------- 03 听力理解 ----------
+const picked={};
+function renderMCQ(){
+  document.getElementById('mcqbox').innerHTML=mcqs.map((m,qi)=>`
+    <div class="mcq" id="mcq${qi}">
+      <p class="q">${qi+1}. ${esc(m.q)}</p>
+      ${m.opts.map((o,oi)=>`<button class="opt" data-q="${qi}" data-o="${oi}" onclick="pickOpt(${qi},${oi})">${String.fromCharCode(65+oi)}. ${esc(o)}</button>`).join('')}
+    </div>`).join('');
+}
+function pickOpt(qi,oi){
+  picked[qi]=oi;
+  document.querySelectorAll(`#mcq${qi} .opt`).forEach(b=>b.classList.toggle('selected', +b.dataset.o===oi));
+}
+function checkMCQ(){
+  let score=0;
+  mcqs.forEach((m,qi)=>{
+    document.querySelectorAll(`#mcq${qi} .opt`).forEach(b=>{
+      const oi=+b.dataset.o; b.classList.remove('correct','wrong','selected');
+      if(oi===m.a) b.classList.add('correct');
+      else if(picked[qi]===oi) b.classList.add('wrong');
+    });
+    if(picked[qi]===m.a) score++;
+  });
+  document.getElementById('mcqresult').textContent=`得分 ${score}/${mcqs.length}`;
+}
+
+// ---------- 04 听写填空 ----------
+let lastInput=null;
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function renderFill(){
+  const bank=shuffle(blanks.concat(distractors));
+  document.getElementById('wordbank').innerHTML=bank.map(w=>`<span class="chip" onclick="useChip(this)">${esc(w)}</span>`).join('');
+  document.getElementById('fillpara').innerHTML=fill.map(seg=>seg.map(p=>
+    typeof p==='string' ? esc(p) : `<input data-i="${p.i}" data-a="${esc(p.a)}" autocomplete="off" spellcheck="false">`
+  ).join('')).join('<br>');
+  document.querySelectorAll('#fillpara input').forEach(inp=>inp.addEventListener('focus',()=>lastInput=inp));
+  lastInput=null;
+  document.getElementById('fillresult').textContent='';
+}
+function useChip(chip){
+  const inputs=[...document.querySelectorAll('#fillpara input')];
+  const target=(lastInput&&!lastInput.value)?lastInput:inputs.find(i=>!i.value);
+  if(!target) return;
+  target.value=chip.textContent; chip.classList.add('used');
+  const next=inputs[inputs.indexOf(target)+1]; if(next){next.focus();lastInput=next;}
+}
+function checkFill(){
+  let score=0; const inputs=[...document.querySelectorAll('#fillpara input')];
+  inputs.forEach(inp=>{
+    const ok=norm(inp.value)===norm(inp.dataset.a);
+    inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok);
+    if(ok) score++;
+  });
+  document.getElementById('fillresult').textContent=`正确 ${score}/${inputs.length}`;
+}
+function resetFill(){renderFill();}
+
+// ---------- 05 本期精讲 ----------
+function renderStep5(){
+  document.getElementById('grammarbox').innerHTML=grammar.map(g=>`
+    <div class="gcard">
+      <h3>${esc(g.title)}</h3>
+      <div class="row"><b>用途</b>${esc(g.use)}</div>
+      <div class="row"><b>结构</b>${esc(g.structure)}</div>
+      <div class="ex">${esc(g.example)}</div>
+      <div class="explain">${esc(g.explain)}</div>
+    </div>`).join('');
+  document.getElementById('vocabgrid').innerHTML=vocab.map(v=>`
+    <div class="vcard"><p class="term">${esc(v.term)}</p><p class="mean">${esc(v.mean)}</p></div>`).join('');
+}
+
+renderPairs(); renderS2(); renderMCQ(); renderFill(); renderStep5(); showPanel(1);
+</script>
+</body>
+</html>
