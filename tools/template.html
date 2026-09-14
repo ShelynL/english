@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);lin
 .playbtn{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--surface-2);color:var(--amber);cursor:pointer;font-size:13px;}
 .pair .ts{flex:none;font-family:var(--mono);font-size:11px;color:var(--text-dim);padding-top:9px;width:42px;}
 .pair-text .it{font-size:15.5px;margin:0 0 2px;}
-.pair-text .cn{font-size:13.5px;color:var(--text-dim);margin:0;}
+.pair-text .en{font-size:13.5px;color:var(--text-dim);margin:0;}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
 .btn{font-weight:600;font-size:13.5px;padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer;font-family:var(--body);}
 .btn.primary{background:var(--amber);border-color:var(--amber);color:#1A1400;}
@@ -86,88 +86,88 @@ textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--
     <div class="dial" id="dial" style="--pct:0"><span id="dialtext">0/5</span></div>
   </div>
   <div class="nav" id="nav">
-    <button class="navbtn active" data-p="1">01 中意对照</button>
-    <button class="navbtn" data-p="2">02 开口输出</button>
-    <button class="navbtn" data-p="3">03 听力理解</button>
-    <button class="navbtn" data-p="4">04 听写填空</button>
-    <button class="navbtn" data-p="5">05 本期精讲</button>
+    <button class="navbtn active" data-p="1">01 Read &amp; Listen</button>
+    <button class="navbtn" data-p="2">02 Speak It</button>
+    <button class="navbtn" data-p="3">03 Listening Quiz</button>
+    <button class="navbtn" data-p="4">04 Dictation Cloze</button>
+    <button class="navbtn" data-p="5">05 Deep Dive</button>
   </div>
 
   <div class="panel active" id="p1">
-    <h2>01 中意对照</h2>
-    <div class="hint">先通读一遍，点 ▶ 听每句发音，跟读两遍再进入下一步。</div>
+    <h2>01 Read &amp; Listen</h2>
+    <div class="hint">Read through once, press ▶ to hear each sentence, shadow it twice, then move on.</div>
     <div id="pairs"></div>
     <div class="actions">
-      <button class="btn" onclick="playAll()">▶ 播放全文</button>
-      <button class="btn primary" onclick="markDone(1)">✓ 完成</button>
+      <button class="btn" onclick="playAll()">▶ Play all</button>
+      <button class="btn primary" onclick="markDone(1)">✓ Done</button>
     </div>
   </div>
 
   <div class="panel" id="p2">
-    <h2>02 开口输出</h2>
-    <div class="hint">只看中文，先大声说出意大利语，再写下来，然后点「对照原文」核对。</div>
+    <h2>02 Speak It</h2>
+    <div class="hint">Look only at the English, say the Italian out loud, type it, then press Compare.</div>
     <p class="s2meta" id="s2meta"></p>
     <p class="s2cn" id="s2cn"></p>
-    <textarea id="s2input" placeholder="在这里写出意大利语..."></textarea>
+    <textarea id="s2input" placeholder="Type the Italian here..."></textarea>
     <div class="actions">
-      <button class="btn" onclick="revealSentence()">对照原文</button>
-      <button class="btn" onclick="speakCurrent()">▶ 听原句</button>
-      <button class="btn" id="s2next" onclick="nextSentence()">下一句</button>
-      <button class="btn primary" onclick="markDone(2)">✓ 完成</button>
+      <button class="btn" onclick="revealSentence()">Compare</button>
+      <button class="btn" onclick="speakCurrent()">▶ Listen</button>
+      <button class="btn" id="s2next" onclick="nextSentence()">Next</button>
+      <button class="btn primary" onclick="markDone(2)">✓ Done</button>
     </div>
     <div class="s2it" id="s2it"></div>
   </div>
 
   <div class="panel" id="p3">
-    <h2>03 听力理解</h2>
-    <div class="hint">不看文字，先听两遍全文，再回答下面 3 道理解题。</div>
+    <h2>03 Listening Quiz</h2>
+    <div class="hint">No text this time: listen to the full audio twice, then answer the 3 questions.</div>
     <div class="actions" style="margin:0 0 20px">
-      <button class="btn primary" onclick="playAll()">▶ 播放语音</button>
-      <button class="btn" onclick="speechSynthesis.cancel()">■ 停止</button>
+      <button class="btn primary" onclick="playAll()">▶ Play audio</button>
+      <button class="btn" onclick="speechSynthesis.cancel()">■ Stop</button>
     </div>
     <div id="mcqbox"></div>
     <div class="actions">
-      <button class="btn" onclick="checkMCQ()">检查答案</button>
-      <button class="btn primary" onclick="markDone(3)">✓ 完成</button>
+      <button class="btn" onclick="checkMCQ()">Check answers</button>
+      <button class="btn primary" onclick="markDone(3)">✓ Done</button>
     </div>
     <div class="result" id="mcqresult"></div>
   </div>
 
   <div class="panel" id="p4">
-    <h2>04 听写填空</h2>
-    <div class="hint">点 ▶ 再听一遍，从词库里选词填空。词库里多了 2 个干扰词，不要全都用上。</div>
+    <h2>04 Dictation Cloze</h2>
+    <div class="hint">Press ▶ to listen again and fill the gaps from the word bank. Two words are distractors, so not all of them fit.</div>
     <div class="actions" style="margin:0 0 16px">
-      <button class="btn" onclick="playAll()">▶ 播放全文</button>
+      <button class="btn" onclick="playAll()">▶ Play all</button>
     </div>
     <div class="wordbank" id="wordbank"></div>
     <p class="fillpara" id="fillpara"></p>
     <div class="actions">
-      <button class="btn" onclick="checkFill()">检查答案</button>
-      <button class="btn" onclick="resetFill()">重置</button>
-      <button class="btn primary" onclick="markDone(4)">✓ 完成</button>
+      <button class="btn" onclick="checkFill()">Check answers</button>
+      <button class="btn" onclick="resetFill()">Reset</button>
+      <button class="btn primary" onclick="markDone(4)">✓ Done</button>
     </div>
     <div class="result" id="fillresult"></div>
   </div>
 
   <div class="panel" id="p5">
-    <h2>05 本期精讲</h2>
-    <p class="subhead">语法点</p>
+    <h2>05 Deep Dive</h2>
+    <p class="subhead">Grammar</p>
     <div id="grammarbox"></div>
-    <p class="subhead">词汇</p>
+    <p class="subhead">Vocabulary</p>
     <div class="vgrid" id="vocabgrid"></div>
-    <p class="subhead">现在轮到你</p>
-    <div class="hint">用本期至少 2 个语法点、3 个词汇，写 3 句和你自己有关的话。</div>
-    <textarea id="s5input" placeholder="现在轮到你..."></textarea>
+    <p class="subhead">Your turn</p>
+    <div class="hint">Write 3 sentences about yourself using at least 2 grammar points and 3 words from this lesson.</div>
+    <textarea id="s5input" placeholder="Your turn..."></textarea>
     <div class="actions">
-      <button class="btn" onclick="speak(document.getElementById('s5input').value)">▶ 听我写的句子</button>
-      <button class="btn primary" onclick="markDone(5)">✓ 完成</button>
+      <button class="btn" onclick="speak(document.getElementById('s5input').value)">▶ Listen to my sentences</button>
+      <button class="btn primary" onclick="markDone(5)">✓ Done</button>
     </div>
   </div>
 </div>
 <script>
 /*__LESSON_DATA__*/
 
-// ---------- 通用 ----------
+// ---------- shared ----------
 const done = {1:false,2:false,3:false,4:false,5:false};
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.p)));
 function showPanel(n){
@@ -200,25 +200,25 @@ function speak(t){
 }
 function playAll(){speak(sentences.map(s=>s.it).join('  '));}
 
-// ---------- 01 中意对照 ----------
+// ---------- 01 Read &amp; Listen ----------
 function renderPairs(){
   document.getElementById('pairs').innerHTML=sentences.map((s,i)=>`
     <div class="pair">
-      <button class="playbtn" title="朗读" onclick="speak(sentences[${i}].it)">▶</button>
+      <button class="playbtn" title="Listen" onclick="speak(sentences[${i}].it)">▶</button>
       <span class="ts">${esc(s.t)}</span>
-      <div class="pair-text"><p class="it">${esc(s.it)}</p><p class="cn">${esc(s.cn)}</p></div>
+      <div class="pair-text"><p class="it">${esc(s.it)}</p><p class="en">${esc(s.en)}</p></div>
     </div>`).join('');
 }
 
-// ---------- 02 开口输出 ----------
+// ---------- 02 Speak It ----------
 let idx=0;
 function renderS2(){
   const s=sentences[idx];
   document.getElementById('s2meta').textContent=`${idx+1} / ${sentences.length}  ·  ${s.t}`;
-  document.getElementById('s2cn').textContent=s.cn;
+  document.getElementById('s2cn').textContent=s.en;
   document.getElementById('s2input').value='';
   document.getElementById('s2it').innerHTML='';
-  document.getElementById('s2next').textContent = idx===sentences.length-1 ? '回到第一句' : '下一句';
+  document.getElementById('s2next').textContent = idx===sentences.length-1 ? 'Back to first' : 'Next';
 }
 function revealSentence(){
   const s=sentences[idx];
@@ -232,7 +232,7 @@ function revealSentence(){
 function speakCurrent(){speak(sentences[idx].it);}
 function nextSentence(){idx=(idx+1)%sentences.length;renderS2();}
 
-// ---------- 03 听力理解 ----------
+// ---------- 03 Listening Quiz ----------
 const picked={};
 function renderMCQ(){
   document.getElementById('mcqbox').innerHTML=mcqs.map((m,qi)=>`
@@ -255,10 +255,10 @@ function checkMCQ(){
     });
     if(picked[qi]===m.a) score++;
   });
-  document.getElementById('mcqresult').textContent=`得分 ${score}/${mcqs.length}`;
+  document.getElementById('mcqresult').textContent=`Score ${score}/${mcqs.length}`;
 }
 
-// ---------- 04 听写填空 ----------
+// ---------- 04 Dictation Cloze ----------
 let lastInput=null;
 function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function renderFill(){
@@ -285,17 +285,17 @@ function checkFill(){
     inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok);
     if(ok) score++;
   });
-  document.getElementById('fillresult').textContent=`正确 ${score}/${inputs.length}`;
+  document.getElementById('fillresult').textContent=`Correct ${score}/${inputs.length}`;
 }
 function resetFill(){renderFill();}
 
-// ---------- 05 本期精讲 ----------
+// ---------- 05 Deep Dive ----------
 function renderStep5(){
   document.getElementById('grammarbox').innerHTML=grammar.map(g=>`
     <div class="gcard">
       <h3>${esc(g.title)}</h3>
-      <div class="row"><b>用途</b>${esc(g.use)}</div>
-      <div class="row"><b>结构</b>${esc(g.structure)}</div>
+      <div class="row"><b>Use</b>${esc(g.use)}</div>
+      <div class="row"><b>Form</b>${esc(g.structure)}</div>
       <div class="ex">${esc(g.example)}</div>
       <div class="explain">${esc(g.explain)}</div>
     </div>`).join('');

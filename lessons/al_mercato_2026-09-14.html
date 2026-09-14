@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>在市场买菜 · Al mercato</title>
+<title>At the Market · Al mercato</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -36,7 +36,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);lin
 .playbtn{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--surface-2);color:var(--amber);cursor:pointer;font-size:13px;}
 .pair .ts{flex:none;font-family:var(--mono);font-size:11px;color:var(--text-dim);padding-top:9px;width:42px;}
 .pair-text .it{font-size:15.5px;margin:0 0 2px;}
-.pair-text .cn{font-size:13.5px;color:var(--text-dim);margin:0;}
+.pair-text .en{font-size:13.5px;color:var(--text-dim);margin:0;}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;}
 .btn{font-weight:600;font-size:13.5px;padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);cursor:pointer;font-family:var(--body);}
 .btn.primary{background:var(--amber);border-color:var(--amber);color:#1A1400;}
@@ -79,102 +79,102 @@ textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--
 <div class="wrap">
   <div class="masthead">
     <div>
-      <p class="eyebrow">Italiano · Lezione · 示例课程</p>
-      <h1 class="title">在市场买菜 · Al mercato</h1>
-      <div class="tags"><span class="tag">A2</span><span class="tag">买菜对话</span><span class="tag">礼貌用语 Lei</span><span class="tag">数量表达</span></div>
+      <p class="eyebrow">Italiano · Lezione · Sample lesson</p>
+      <h1 class="title">At the Market · Al mercato</h1>
+      <div class="tags"><span class="tag">A2</span><span class="tag">Shopping dialogue</span><span class="tag">Formal Lei</span><span class="tag">Quantities</span></div>
     </div>
     <div class="dial" id="dial" style="--pct:0"><span id="dialtext">0/5</span></div>
   </div>
   <div class="nav" id="nav">
-    <button class="navbtn active" data-p="1">01 中意对照</button>
-    <button class="navbtn" data-p="2">02 开口输出</button>
-    <button class="navbtn" data-p="3">03 听力理解</button>
-    <button class="navbtn" data-p="4">04 听写填空</button>
-    <button class="navbtn" data-p="5">05 本期精讲</button>
+    <button class="navbtn active" data-p="1">01 Read &amp; Listen</button>
+    <button class="navbtn" data-p="2">02 Speak It</button>
+    <button class="navbtn" data-p="3">03 Listening Quiz</button>
+    <button class="navbtn" data-p="4">04 Dictation Cloze</button>
+    <button class="navbtn" data-p="5">05 Deep Dive</button>
   </div>
 
   <div class="panel active" id="p1">
-    <h2>01 中意对照</h2>
-    <div class="hint">先通读一遍，点 ▶ 听每句发音，跟读两遍再进入下一步。</div>
+    <h2>01 Read &amp; Listen</h2>
+    <div class="hint">Read through once, press ▶ to hear each sentence, shadow it twice, then move on.</div>
     <div id="pairs"></div>
     <div class="actions">
-      <button class="btn" onclick="playAll()">▶ 播放全文</button>
-      <button class="btn primary" onclick="markDone(1)">✓ 完成</button>
+      <button class="btn" onclick="playAll()">▶ Play all</button>
+      <button class="btn primary" onclick="markDone(1)">✓ Done</button>
     </div>
   </div>
 
   <div class="panel" id="p2">
-    <h2>02 开口输出</h2>
-    <div class="hint">只看中文，先大声说出意大利语，再写下来，然后点「对照原文」核对。</div>
+    <h2>02 Speak It</h2>
+    <div class="hint">Look only at the English, say the Italian out loud, type it, then press Compare.</div>
     <p class="s2meta" id="s2meta"></p>
     <p class="s2cn" id="s2cn"></p>
-    <textarea id="s2input" placeholder="在这里写出意大利语..."></textarea>
+    <textarea id="s2input" placeholder="Type the Italian here..."></textarea>
     <div class="actions">
-      <button class="btn" onclick="revealSentence()">对照原文</button>
-      <button class="btn" onclick="speakCurrent()">▶ 听原句</button>
-      <button class="btn" id="s2next" onclick="nextSentence()">下一句</button>
-      <button class="btn primary" onclick="markDone(2)">✓ 完成</button>
+      <button class="btn" onclick="revealSentence()">Compare</button>
+      <button class="btn" onclick="speakCurrent()">▶ Listen</button>
+      <button class="btn" id="s2next" onclick="nextSentence()">Next</button>
+      <button class="btn primary" onclick="markDone(2)">✓ Done</button>
     </div>
     <div class="s2it" id="s2it"></div>
   </div>
 
   <div class="panel" id="p3">
-    <h2>03 听力理解</h2>
-    <div class="hint">不看文字，先听两遍全文，再回答下面 3 道理解题。</div>
+    <h2>03 Listening Quiz</h2>
+    <div class="hint">No text this time: listen to the full audio twice, then answer the 3 questions.</div>
     <div class="actions" style="margin:0 0 20px">
-      <button class="btn primary" onclick="playAll()">▶ 播放语音</button>
-      <button class="btn" onclick="speechSynthesis.cancel()">■ 停止</button>
+      <button class="btn primary" onclick="playAll()">▶ Play audio</button>
+      <button class="btn" onclick="speechSynthesis.cancel()">■ Stop</button>
     </div>
     <div id="mcqbox"></div>
     <div class="actions">
-      <button class="btn" onclick="checkMCQ()">检查答案</button>
-      <button class="btn primary" onclick="markDone(3)">✓ 完成</button>
+      <button class="btn" onclick="checkMCQ()">Check answers</button>
+      <button class="btn primary" onclick="markDone(3)">✓ Done</button>
     </div>
     <div class="result" id="mcqresult"></div>
   </div>
 
   <div class="panel" id="p4">
-    <h2>04 听写填空</h2>
-    <div class="hint">点 ▶ 再听一遍，从词库里选词填空。词库里多了 2 个干扰词，不要全都用上。</div>
+    <h2>04 Dictation Cloze</h2>
+    <div class="hint">Press ▶ to listen again and fill the gaps from the word bank. Two words are distractors, so not all of them fit.</div>
     <div class="actions" style="margin:0 0 16px">
-      <button class="btn" onclick="playAll()">▶ 播放全文</button>
+      <button class="btn" onclick="playAll()">▶ Play all</button>
     </div>
     <div class="wordbank" id="wordbank"></div>
     <p class="fillpara" id="fillpara"></p>
     <div class="actions">
-      <button class="btn" onclick="checkFill()">检查答案</button>
-      <button class="btn" onclick="resetFill()">重置</button>
-      <button class="btn primary" onclick="markDone(4)">✓ 完成</button>
+      <button class="btn" onclick="checkFill()">Check answers</button>
+      <button class="btn" onclick="resetFill()">Reset</button>
+      <button class="btn primary" onclick="markDone(4)">✓ Done</button>
     </div>
     <div class="result" id="fillresult"></div>
   </div>
 
   <div class="panel" id="p5">
-    <h2>05 本期精讲</h2>
-    <p class="subhead">语法点</p>
+    <h2>05 Deep Dive</h2>
+    <p class="subhead">Grammar</p>
     <div id="grammarbox"></div>
-    <p class="subhead">词汇</p>
+    <p class="subhead">Vocabulary</p>
     <div class="vgrid" id="vocabgrid"></div>
-    <p class="subhead">现在轮到你</p>
-    <div class="hint">用本期至少 2 个语法点、3 个词汇，写 3 句和你自己有关的话。</div>
-    <textarea id="s5input" placeholder="现在轮到你..."></textarea>
+    <p class="subhead">Your turn</p>
+    <div class="hint">Write 3 sentences about yourself using at least 2 grammar points and 3 words from this lesson.</div>
+    <textarea id="s5input" placeholder="Your turn..."></textarea>
     <div class="actions">
-      <button class="btn" onclick="speak(document.getElementById('s5input').value)">▶ 听我写的句子</button>
-      <button class="btn primary" onclick="markDone(5)">✓ 完成</button>
+      <button class="btn" onclick="speak(document.getElementById('s5input').value)">▶ Listen to my sentences</button>
+      <button class="btn primary" onclick="markDone(5)">✓ Done</button>
     </div>
   </div>
 </div>
 <script>
-const meta = {"slug": "al_mercato", "date": "2026-09-14", "eyebrow": "Italiano · Lezione · 示例课程", "title": "在市场买菜 · Al mercato", "tags": ["A2", "买菜对话", "礼貌用语 Lei", "数量表达"], "source_url": "示例：本地手写 VTT（lessons/raw/al_mercato_it.vtt），非真实视频"};
-const sentences = [{"t": "00:00", "it": "Buongiorno signora, cosa desidera oggi?", "cn": "早上好，女士，您今天想要点什么？"}, {"t": "00:02", "it": "Buongiorno! Vorrei un chilo di pomodori, per favore.", "cn": "早上好！我想要一公斤西红柿，麻烦了。"}, {"t": "00:10", "it": "Quanto costano al chilo?", "cn": "多少钱一公斤？"}, {"t": "00:14", "it": "Va bene, e mi dia anche mezzo chilo di zucchine.", "cn": "好的，再给我半公斤西葫芦。"}, {"t": "00:23", "it": "Perfetto. Ha anche del basilico fresco?", "cn": "太好了。您还有新鲜罗勒吗？"}, {"t": "00:36", "it": "No, grazie, basta così. Quant'è in tutto?", "cn": "不用了，谢谢，这样就够了。一共多少钱？"}];
-const mcqs = [{"q": "La signora vuole comprare quanti pomodori?（女士想买多少西红柿？）", "opts": ["mezzo chilo", "un chilo", "due chili"], "a": 1}, {"q": "Oltre ai pomodori e alle zucchine, cosa chiede la signora?（除了西红柿和西葫芦，女士还问了什么？）", "opts": ["del pane", "del basilico", "delle patate"], "a": 1}, {"q": "Alla fine, la signora vuole comprare qualcos'altro?（最后女士还想买别的吗？）", "opts": ["Sì, vuole anche della frutta", "Sì, vuole altri pomodori", "No, basta così"], "a": 2}];
+const meta = {"slug": "al_mercato", "date": "2026-09-14", "eyebrow": "Italiano · Lezione · Sample lesson", "title": "At the Market · Al mercato", "tags": ["A2", "Shopping dialogue", "Formal Lei", "Quantities"], "source_url": "Sample: hand-written VTT (lessons/raw/al_mercato_it.vtt), not a real video"};
+const sentences = [{"t": "00:00", "it": "Buongiorno signora, cosa desidera oggi?", "en": "Good morning, madam, what would you like today?"}, {"t": "00:02", "it": "Buongiorno! Vorrei un chilo di pomodori, per favore.", "en": "Good morning! I'd like a kilo of tomatoes, please."}, {"t": "00:10", "it": "Quanto costano al chilo?", "en": "How much are they per kilo?"}, {"t": "00:14", "it": "Va bene, e mi dia anche mezzo chilo di zucchine.", "en": "All right, and give me half a kilo of courgettes as well."}, {"t": "00:23", "it": "Perfetto. Ha anche del basilico fresco?", "en": "Perfect. Do you also have some fresh basil?"}, {"t": "00:36", "it": "No, grazie, basta così. Quant'è in tutto?", "en": "No, thank you, that's all. How much is it altogether?"}];
+const mcqs = [{"q": "How many tomatoes does the customer want to buy?", "opts": ["half a kilo", "one kilo", "two kilos"], "a": 1}, {"q": "Besides tomatoes and courgettes, what does she ask for?", "opts": ["some bread", "some basil", "some potatoes"], "a": 1}, {"q": "In the end, does she want anything else?", "opts": ["Yes, some fruit too", "Yes, more tomatoes", "No, that's all"], "a": 2}];
 const blanks = ["desidera", "chilo", "costano", "dia", "mezzo", "del", "basta", "tutto"];
 const distractors = ["prendo", "sempre"];
 const fill = [["Buongiorno signora, cosa ", {"i": 0, "a": "desidera"}, " oggi?"], ["Buongiorno! Vorrei un ", {"i": 1, "a": "chilo"}, " di pomodori, per favore."], ["Quanto ", {"i": 2, "a": "costano"}, " al chilo?"], ["Va bene, e mi ", {"i": 3, "a": "dia"}, " anche ", {"i": 4, "a": "mezzo"}, " chilo di zucchine."], ["Perfetto. Ha anche ", {"i": 5, "a": "del"}, " basilico fresco?"], ["No, grazie, ", {"i": 6, "a": "basta"}, " così. Quant'è in ", {"i": 7, "a": "tutto"}, "?"]];
-const grammar = [{"title": "Vorrei… — 礼貌地说「我想要」", "use": "在商店、餐厅、市场提出请求，比 voglio（我要）礼貌得多。", "structure": "Vorrei + 名词 / Vorrei + 动词原形（Vorrei un chilo di pomodori / Vorrei comprare…）", "example": "Vorrei un chilo di pomodori, per favore.", "explain": "vorrei 是 volere 的条件式第一人称单数，相当于英语 I would like。句尾加 per favore 更自然。数量表达固定用 di：un chilo DI pomodori、mezzo chilo DI zucchine、un litro DI latte。"}, {"title": "Quanto costa / costano? — 问价钱", "use": "问单个东西的价钱用 costa，问复数用 costano。", "structure": "Quanto costa + 单数名词？ / Quanto costano + 复数名词？ / Quant'è (in tutto)?", "example": "Quanto costano al chilo? — Quant'è in tutto?", "explain": "对话里 costano 指的是前面提到的 pomodori（复数）。al chilo = a + il chilo，「每公斤」。结账时问总价说 Quant'è in tutto?（一共多少钱？），Quant'è 是 Quanto è 的省音形式。"}, {"title": "del / della / dei… — 部分冠词，「一些」", "use": "表示不确定数量的「一些」，尤其用于不可数名词或泛指。", "structure": "di + 定冠词：del (il) / dello (lo) / della (la) / dell' / dei (i) / degli (gli) / delle (le)", "example": "Ha anche del basilico fresco?", "explain": "del basilico = 一些罗勒。选项里的 del pane、delle patate 也是同样的结构。回答 Sì 之后通常直接说数量：un mazzetto（一小把）、un chilo 等。"}, {"title": "Mi dia… — 对陌生人的礼貌命令式（Lei 形式）", "use": "对店员、服务员等用「您」称呼时提出请求。", "structure": "Mi dia + 名词（dare 的 Lei 命令式 dia）· 同类：Mi dica（请说）、Mi scusi（不好意思）", "example": "Va bene, e mi dia anche mezzo chilo di zucchine.", "explain": "这段对话全程用 Lei（尊称）：cosa desidera、ha anche…、mi dia、ecco a lei。对朋友则说 dammi（tu 形式）。注意 anche 放在动词后、名词前：mi dia ANCHE mezzo chilo。"}];
-const vocab = [{"term": "desiderare", "mean": "想要，希望（店员常用：Cosa desidera? 您要点什么？）"}, {"term": "un chilo / mezzo chilo", "mean": "一公斤 / 半公斤（chilo 是 chilogrammo 的缩写）"}, {"term": "il pomodoro / i pomodori", "mean": "西红柿（复数 -o → -i）"}, {"term": "la zucchina / le zucchine", "mean": "西葫芦（复数 -a → -e）"}, {"term": "costare", "mean": "花费，值多少钱（costa / costano）"}, {"term": "il basilico", "mean": "罗勒（做 pasta al pomodoro 必备）"}, {"term": "basta così", "mean": "这样就够了（购物结束时的固定说法）"}, {"term": "in tutto", "mean": "总共，一共（Quant'è in tutto?）"}];
+const grammar = [{"title": "Vorrei… — the polite \"I'd like\"", "use": "Making a request in a shop, a restaurant or at the market. Far more polite than voglio (I want).", "structure": "Vorrei + noun / Vorrei + infinitive (Vorrei un chilo di pomodori / Vorrei comprare…)", "example": "Vorrei un chilo di pomodori, per favore.", "explain": "vorrei is the conditional of volere, first person singular: literally \"I would want\". Add per favore at the end to sound natural. Quantities always take di: un chilo DI pomodori, mezzo chilo DI zucchine, un litro DI latte."}, {"title": "Quanto costa / costano? — asking the price", "use": "costa for one item, costano for several.", "structure": "Quanto costa + singular noun? / Quanto costano + plural noun? / Quant'è (in tutto)?", "example": "Quanto costano al chilo? — Quant'è in tutto?", "explain": "Here costano refers back to the pomodori (plural). al chilo = a + il chilo, \"per kilo\". When you pay, ask for the total with Quant'è in tutto? (Quant'è is the elided form of Quanto è)."}, {"title": "del / della / dei… — the partitive \"some\"", "use": "An unspecified amount of something, especially with uncountable nouns.", "structure": "di + definite article: del (il) / dello (lo) / della (la) / dell' / dei (i) / degli (gli) / delle (le)", "example": "Ha anche del basilico fresco?", "explain": "del basilico = some basil. The quiz options del pane and delle patate use the same pattern. After a Sì, people usually go straight to the quantity: un mazzetto (a small bunch), un chilo, and so on."}, {"title": "Mi dia… — the polite imperative (Lei form)", "use": "Requests to a shopkeeper, a waiter, anyone you address with Lei.", "structure": "Mi dia + noun (dia is the Lei imperative of dare) · also: Mi dica (tell me), Mi scusi (excuse me)", "example": "Va bene, e mi dia anche mezzo chilo di zucchine.", "explain": "The whole dialogue uses Lei, the formal \"you\": cosa desidera, ha anche…, mi dia, ecco a lei. With a friend you'd say dammi (tu form). Note the word order: anche sits between the verb and the noun: mi dia ANCHE mezzo chilo."}];
+const vocab = [{"term": "desiderare", "mean": "to want, to wish (shopkeepers' Cosa desidera? = What would you like?)"}, {"term": "un chilo / mezzo chilo", "mean": "a kilo / half a kilo (chilo is short for chilogrammo)"}, {"term": "il pomodoro / i pomodori", "mean": "tomato / tomatoes (plural -o → -i)"}, {"term": "la zucchina / le zucchine", "mean": "courgette, zucchini (plural -a → -e)"}, {"term": "costare", "mean": "to cost (costa / costano)"}, {"term": "il basilico", "mean": "basil (essential for pasta al pomodoro)"}, {"term": "basta così", "mean": "that's all, that's enough (the set phrase to end a purchase)"}, {"term": "in tutto", "mean": "altogether, in total (Quant'è in tutto?)"}];
 
-// ---------- 通用 ----------
+// ---------- shared ----------
 const done = {1:false,2:false,3:false,4:false,5:false};
 document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.p)));
 function showPanel(n){
@@ -207,25 +207,25 @@ function speak(t){
 }
 function playAll(){speak(sentences.map(s=>s.it).join('  '));}
 
-// ---------- 01 中意对照 ----------
+// ---------- 01 Read &amp; Listen ----------
 function renderPairs(){
   document.getElementById('pairs').innerHTML=sentences.map((s,i)=>`
     <div class="pair">
-      <button class="playbtn" title="朗读" onclick="speak(sentences[${i}].it)">▶</button>
+      <button class="playbtn" title="Listen" onclick="speak(sentences[${i}].it)">▶</button>
       <span class="ts">${esc(s.t)}</span>
-      <div class="pair-text"><p class="it">${esc(s.it)}</p><p class="cn">${esc(s.cn)}</p></div>
+      <div class="pair-text"><p class="it">${esc(s.it)}</p><p class="en">${esc(s.en)}</p></div>
     </div>`).join('');
 }
 
-// ---------- 02 开口输出 ----------
+// ---------- 02 Speak It ----------
 let idx=0;
 function renderS2(){
   const s=sentences[idx];
   document.getElementById('s2meta').textContent=`${idx+1} / ${sentences.length}  ·  ${s.t}`;
-  document.getElementById('s2cn').textContent=s.cn;
+  document.getElementById('s2cn').textContent=s.en;
   document.getElementById('s2input').value='';
   document.getElementById('s2it').innerHTML='';
-  document.getElementById('s2next').textContent = idx===sentences.length-1 ? '回到第一句' : '下一句';
+  document.getElementById('s2next').textContent = idx===sentences.length-1 ? 'Back to first' : 'Next';
 }
 function revealSentence(){
   const s=sentences[idx];
@@ -239,7 +239,7 @@ function revealSentence(){
 function speakCurrent(){speak(sentences[idx].it);}
 function nextSentence(){idx=(idx+1)%sentences.length;renderS2();}
 
-// ---------- 03 听力理解 ----------
+// ---------- 03 Listening Quiz ----------
 const picked={};
 function renderMCQ(){
   document.getElementById('mcqbox').innerHTML=mcqs.map((m,qi)=>`
@@ -262,10 +262,10 @@ function checkMCQ(){
     });
     if(picked[qi]===m.a) score++;
   });
-  document.getElementById('mcqresult').textContent=`得分 ${score}/${mcqs.length}`;
+  document.getElementById('mcqresult').textContent=`Score ${score}/${mcqs.length}`;
 }
 
-// ---------- 04 听写填空 ----------
+// ---------- 04 Dictation Cloze ----------
 let lastInput=null;
 function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function renderFill(){
@@ -292,17 +292,17 @@ function checkFill(){
     inp.classList.toggle('correct',ok); inp.classList.toggle('wrong',!ok);
     if(ok) score++;
   });
-  document.getElementById('fillresult').textContent=`正确 ${score}/${inputs.length}`;
+  document.getElementById('fillresult').textContent=`Correct ${score}/${inputs.length}`;
 }
 function resetFill(){renderFill();}
 
-// ---------- 05 本期精讲 ----------
+// ---------- 05 Deep Dive ----------
 function renderStep5(){
   document.getElementById('grammarbox').innerHTML=grammar.map(g=>`
     <div class="gcard">
       <h3>${esc(g.title)}</h3>
-      <div class="row"><b>用途</b>${esc(g.use)}</div>
-      <div class="row"><b>结构</b>${esc(g.structure)}</div>
+      <div class="row"><b>Use</b>${esc(g.use)}</div>
+      <div class="row"><b>Form</b>${esc(g.structure)}</div>
       <div class="ex">${esc(g.example)}</div>
       <div class="explain">${esc(g.explain)}</div>
     </div>`).join('');

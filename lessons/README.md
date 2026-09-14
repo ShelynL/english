@@ -1,6 +1,6 @@
 # 意大利语视频课程生成流水线
 
-把一个 YouTube 意大利语视频变成一份「五步法」互动课程 HTML。
+把一个 YouTube 意大利语视频变成一份「五步法」互动课程 HTML。课程页面为意大利语 ↔ 英语对照，界面与讲解全部英文；本 README 是给维护者看的中文说明。
 
 ```
 yt-dlp 拉字幕 → tools/parse_vtt.py 清洗成句子列表 → Claude 写 lesson.json → tools/build_lesson.py 生成 HTML
@@ -45,7 +45,7 @@ python3 tools/parse_vtt.py lessons/raw/everyeye_tech.it.vtt --merge -o lessons/r
 **3. 让 Claude 写 lesson.json**
 
 把 `lessons/raw/everyeye_tech_sentences.json` 和本 README 的「lesson.json 结构」一起发给 Claude Code，让它：
-挑 6 句语法/词汇有代表性的句子 → 补中文翻译 → 出 3 道 MCQ 理解题 → 选 6–8 个挖空词 + 2 个干扰词 → 写语法卡片和词汇卡片，
+挑 6 句语法/词汇有代表性的句子 → 补英文翻译 → 出 3 道 MCQ 理解题（英文） → 选 6–8 个挖空词 + 2 个干扰词 → 写英文的语法卡片和词汇卡片，
 保存为 `lessons/raw/everyeye_tech_lesson.json`。
 
 **4. 生成课程**
@@ -59,11 +59,11 @@ python3 tools/build_lesson.py lessons/raw/everyeye_tech_lesson.json
 
 | 步骤 | 内容 | 用到的数据 |
 |---|---|---|
-| 01 中意对照 | 6 句 IT + CN 对照，每句 ▶ TTS 朗读，可播放全文 | `sentences` |
-| 02 开口输出 | 只显示中文，用户写意大利语，「对照原文」逐词标绿/标红，可翻页 | `sentences` |
-| 03 听力理解 | 播放全文 TTS（不显示文字），3 道单选题，检查后标绿/红并计分 | `mcqs` |
-| 04 听写填空 | 6 句原文挖空（每个词只挖第一次出现），词库 = 挖空词 + 2 干扰词，点词填入，逐空比对计分 | `blanks` `distractors` |
-| 05 本期精讲 | 语法卡片（用途 / 结构 / 原文例句 / 讲解）+ 词汇卡片网格 + 「现在轮到你」造句 | `grammar` `vocab` |
+| 01 Read & Listen | 6 句意大利语 + 英语对照，每句 ▶ TTS 朗读，可播放全文 | `sentences` |
+| 02 Speak It | 只显示英文，用户写意大利语，「对照原文」逐词标绿/标红，可翻页 | `sentences` |
+| 03 Listening Quiz | 播放全文 TTS（不显示文字），3 道单选题，检查后标绿/红并计分 | `mcqs` |
+| 04 Dictation Cloze | 6 句原文挖空（每个词只挖第一次出现），词库 = 挖空词 + 2 干扰词，点词填入，逐空比对计分 | `blanks` `distractors` |
+| 05 Deep Dive | 语法卡片（用途 / 结构 / 原文例句 / 讲解）+ 词汇卡片网格 + 「现在轮到你」造句 | `grammar` `vocab` |
 
 朗读用浏览器自带的 `speechSynthesis`（意大利语 voice），无需联网；页面里的 Google Fonts 链接离线时自动回退系统字体。
 
@@ -75,23 +75,23 @@ python3 tools/build_lesson.py lessons/raw/everyeye_tech_lesson.json
     "slug": "al_mercato",            // 文件名用，只能字母数字下划线连字符
     "date": "2026-09-14",            // YYYY-MM-DD
     "eyebrow": "Italiano · Lezione", // 标题上方的小字
-    "title": "在市场买菜 · Al mercato",
-    "tags": ["A2", "买菜对话"],
+    "title": "At the Market · Al mercato",
+    "tags": ["A2", "Shopping dialogue"],
     "source_url": "https://www.youtube.com/watch?v=..."
   },
   "sentences": [                     // 恰好 6 句
-    { "t": "00:02", "it": "Vorrei un chilo di pomodori, per favore.", "cn": "我想要一公斤西红柿，麻烦了。" }
+    { "t": "00:02", "it": "Vorrei un chilo di pomodori, per favore.", "en": "I'd like a kilo of tomatoes, please." }
   ],
   "mcqs": [                          // 恰好 3 题，a 是正确选项下标（从 0 起）
-    { "q": "问题（可附中文）", "opts": ["A", "B", "C"], "a": 1 }
+    { "q": "Question in English", "opts": ["A", "B", "C"], "a": 1 }
   ],
   "blanks": ["desidera", "chilo"],   // 6–8 个，必须能在 6 句原文里整词找到，不重复
   "distractors": ["prendo", "sempre"], // 恰好 2 个，不能出现在原文里
   "grammar": [                       // ≥1 张
-    { "title": "Vorrei…", "use": "用途", "structure": "结构", "example": "原文例句", "explain": "讲解" }
+    { "title": "Vorrei…", "use": "when to use it", "structure": "form", "example": "sentence from the video", "explain": "explanation (English)" }
   ],
   "vocab": [                         // ≥1 张
-    { "term": "desiderare", "mean": "想要" }
+    { "term": "desiderare", "mean": "to want, to wish (English gloss)" }
   ]
 }
 ```

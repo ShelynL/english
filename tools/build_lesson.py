@@ -50,7 +50,7 @@ def validate(lesson):
         errs.append(f"sentences 必须恰好 {N_SENTENCES} 句 (现在 {len(sents) if isinstance(sents, list) else '不是列表'})")
         sents = sents if isinstance(sents, list) else []
     for i, s in enumerate(sents):
-        for k in ("t", "it", "cn"):
+        for k in ("t", "it", "en"):
             if not str((s or {}).get(k, "")).strip():
                 errs.append(f"sentences[{i}].{k} 不能为空")
 
