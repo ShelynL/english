@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{TITLE}}</title>
+<title>五星奢华酒店的 48 小时 · Seven Pines</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -79,9 +79,9 @@ textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--
 <div class="wrap">
   <div class="masthead">
     <div>
-      <p class="eyebrow">{{EYEBROW}}</p>
-      <h1 class="title">{{TITLE}}</h1>
-      <div class="tags">{{TAGS}}</div>
+      <p class="eyebrow">Italiano · Chapeau · Seven Pines, Sardegna</p>
+      <h1 class="title">五星奢华酒店的 48 小时 · Seven Pines</h1>
+      <div class="tags"><span class="tag">B1-B2</span><span class="tag">酒店与商业</span><span class="tag">访谈</span><span class="tag">数字与百分比</span></div>
     </div>
     <div class="dial" id="dial" style="--pct:0"><span id="dialtext">0/5</span></div>
   </div>
@@ -165,7 +165,14 @@ textarea{width:100%;min-height:80px;background:var(--bg);border:1px solid var(--
   </div>
 </div>
 <script>
-/*__LESSON_DATA__*/
+const meta = {"slug": "seven_pines", "date": "2026-09-14", "eyebrow": "Italiano · Chapeau · Seven Pines, Sardegna", "title": "五星奢华酒店的 48 小时 · Seven Pines", "tags": ["B1-B2", "酒店与商业", "访谈", "数字与百分比"], "source_url": "https://www.youtube.com/watch?v=OI3Gm7mUhtE"};
+const sentences = [{"t": "00:22", "it": "In Sardegna ci sono hotel da 10.000 euro a notte, frequentati da calciatori, attori di Hollywood e imprenditori miliardari.", "cn": "在撒丁岛有每晚一万欧元的酒店，常客是足球运动员、好莱坞演员和亿万富翁企业家。"}, {"t": "01:55", "it": "L'occupazione di ieri è stata al 100% contro un budget dell'84%.", "cn": "昨天的入住率是 100%，而预算目标是 84%。"}, {"t": "05:13", "it": "Devo dargli del voi o del lei?", "cn": "我该用「您们」还是用「您」来称呼他？"}, {"t": "09:21", "it": "Con studio, con serietà, con disciplina si può arrivare a diventare uno chef stellato.", "cn": "靠学习、认真和自律，是可以成为米其林星级主厨的。"}, {"t": "14:52", "it": "L'anno scorso abbiamo superato i 15 milioni di euro di fatturato globale.", "cn": "去年我们的总营业额超过了一千五百万欧元。"}, {"t": "22:31", "it": "Per me è il lavoro più bello del mondo, però richiede tanto sacrificio e tanta gavetta.", "cn": "对我来说这是世界上最美好的工作，但它需要很多牺牲，也需要从底层熬很久。"}];
+const mcqs = [{"q": "Quanto costa a notte un hotel di lusso in Sardegna, secondo il video?（视频里撒丁岛的奢华酒店每晚多少钱？）", "opts": ["1.000 euro", "100.000 euro", "10.000 euro"], "a": 2}, {"q": "Qual è stata l'occupazione dell'hotel ieri?（酒店昨天的入住率是多少？）", "opts": ["84%", "100%", "65%"], "a": 1}, {"q": "Secondo Vito, cosa richiede il lavoro nell'hotellerie di lusso?（Vito 说这份工作需要什么？）", "opts": ["tanto sacrificio e tanta gavetta", "solo fortuna e talento", "poco impegno"], "a": 0}];
+const blanks = ["notte", "stata", "dargli", "disciplina", "stellato", "superato", "richiede", "gavetta"];
+const distractors = ["costa", "sempre"];
+const fill = [["In Sardegna ci sono hotel da 10.000 euro a ", {"i": 0, "a": "notte"}, ", frequentati da calciatori, attori di Hollywood e imprenditori miliardari."], ["L'occupazione di ieri è ", {"i": 1, "a": "stata"}, " al 100% contro un budget dell'84%."], ["Devo ", {"i": 2, "a": "dargli"}, " del voi o del lei?"], ["Con studio, con serietà, con ", {"i": 3, "a": "disciplina"}, " si può arrivare a diventare uno chef ", {"i": 4, "a": "stellato"}, "."], ["L'anno scorso abbiamo ", {"i": 5, "a": "superato"}, " i 15 milioni di euro di fatturato globale."], ["Per me è il lavoro più bello del mondo, però ", {"i": 6, "a": "richiede"}, " tanto sacrificio e tanta ", {"i": 7, "a": "gavetta"}, "."]];
+const grammar = [{"title": "Passato prossimo：essere 还是 avere？", "use": "讲过去发生并已完成的事，是意大利语口语里最常用的过去时。", "structure": "avere + 过去分词（大多数动词）；essere + 过去分词（stare、andare、venire 等移动/状态动词，分词要跟主语配合性数）", "example": "L'occupazione di ieri è stata al 100%. — L'anno scorso abbiamo superato i 15 milioni.", "explain": "stare 用 essere，主语 l'occupazione 是阴性单数，所以分词是 stata（不是 stato）。superare 是及物动词，用 avere，分词 superato 不变。视频里还有 siamo andati、ci ha fatto、ho iniziato，都可以按这个规则判断。"}, {"title": "Dare del tu / del lei / del voi — 用「你」还是「您」", "use": "问或说明该用哪种称呼；意大利语里选错称呼是很大的礼貌问题。", "structure": "dare del tu a qualcuno（用你称呼）/ dare del lei（用您）/ dare del voi（南方或极正式场合的「您们」）", "example": "Devo dargli del voi o del lei? — Del lei, assolutamente.", "explain": "dargli = dare + gli（给他）。意大利语里代词可以直接粘在动词原形后面：dargli、dirle、farlo。前台经理回答 del lei, assolutamente，说明对付费 8000 欧一晚的客人，必须用 Lei。对话里后面所有的 si accomodi、venga pure、le devo chiedere 都是 Lei 形式。"}, {"title": "Si può + 动词原形 — 无人称的「可以 / 人们能」", "use": "泛指任何人都适用的规则、可能性，不指明具体主语。", "structure": "si + 动词第三人称（si può、si dice、si mangia）+ 动词原形；arrivare a + 动词原形 = 最终做到某事", "example": "Con studio, con serietà, con disciplina si può arrivare a diventare uno chef stellato.", "explain": "si può arrivare a diventare 是三个动词连在一起：si può（可以）+ arrivare a（达到）+ diventare（成为）。视频里的 come si diventa uno chef stellato、si dice che il mare della Sardegna sia il più bello 都是同一种 si 用法。"}, {"title": "相对最高级：il più … del / d'…", "use": "在一个范围内说「最……的」。", "structure": "定冠词 + 名词 + più / meno + 形容词 + di / del / d' + 范围；或 uno dei / una delle + 复数名词 + più + 形容词", "example": "Per me è il lavoro più bello del mondo. — Uno dei 5 stelle più costosi d'Italia.", "explain": "范围用 di 引出：del mondo、d'Italia、della costa。视频里同类表达很多：il tramonto più bello della costa、il momento più difficile、l'ospite più facoltoso nella storia del Seven Pines。"}];
+const vocab = [{"term": "a notte", "mean": "每晚（10.000 euro a notte；同类：al chilo、all'ora）"}, {"term": "frequentato da", "mean": "常有……光顾的（frequentare 的过去分词作形容词）"}, {"term": "l'occupazione", "mean": "入住率（酒店业）；也指「职业、占领」"}, {"term": "il budget", "mean": "预算（英语借词，不变复数）"}, {"term": "il fatturato", "mean": "营业额、营收"}, {"term": "superare", "mean": "超过；通过（考试）"}, {"term": "lo chef stellato", "mean": "米其林星级主厨（stella = 星）；注意 lo chef 用 lo"}, {"term": "la gavetta", "mean": "从底层熬起的历练（fare la gavetta = 从最基层干起）"}, {"term": "il sacrificio", "mean": "牺牲、付出"}, {"term": "l'imprenditore miliardario", "mean": "亿万富翁企业家（miliardo = 十亿）"}];
 
 // ---------- 通用 ----------
 const done = {1:false,2:false,3:false,4:false,5:false};
